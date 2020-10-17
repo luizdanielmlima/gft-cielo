@@ -1,27 +1,11 @@
-# GftCielo
+# Projeto GFT-Cielo
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 10.0.5.
+Esse projeto foi gerado com o Angular CLI (https://github.com/angular/angular-cli) version 10.0.5.
 
 ## Development server
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
-
-## Code scaffolding
-
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+Execute `ng serve` para rodar o dev server. Abra o navegador e digite a URL `http://localhost:4200/`. O aplicativo irá aparecer na tela e é recarregado cada vez que algum arquivo é alterado.
 
 ## Build
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+Execute `ng build` para compilcar o projeto. Os arquivos compilados são armazenados na pasta`dist/`. Use a flag `--prod` para gerar o build de produção.
