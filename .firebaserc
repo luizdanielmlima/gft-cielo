@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "gft-cielo": {
+      "hosting": {
+        "gft-cielo": [
+          "gft-cielo"
+        ]
+      }
+    }
+  }
+}

@@ -1,13 +1,15 @@
 export interface Lancamento {
+  id: string;
   lancamentoContaCorrenteCliente: {
     numeroRemessaBanco: number;
-    nomeSituacaoRemessa: number;
+    nomeSituacaoRemessa: string;
+    dadosAnaliticoLancamentoFinanceiroCliente: any[];
     dadosDomicilioBancario: {
       codigoBanco: number;
       numeroAgencia: number;
-      numeroContaCorrente: number;
+      numeroContaCorrente: string;
     };
-    nomeTipoOperacao: number
+    nomeTipoOperacao: string
   };
   dataEfetivaLancamento: string;
   dataLancamentoContaCorrenteCliente: string;

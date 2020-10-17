@@ -1,10 +1,13 @@
 import { Injectable } from '@angular/core';
 
+import { map } from 'rxjs/operators';
+
 import {
   AngularFirestore,
   AngularFirestoreDocument,
   AngularFirestoreCollection,
 } from '@angular/fire/firestore';
+import { Observable } from 'rxjs';
 
 import { CustomUser } from '../models/CustomUser.model';
 import { Lancamento } from '../models/Lancamento.model';
@@ -35,7 +38,7 @@ export class DataService {
         .subscribe(
           (userDoc) => {
             const data = userDoc.data() as any;
-            console.log('user data: ', data);
+            // console.log('user data: ', data);
             resolve(data);
           },
           (err) => reject(err),
@@ -43,11 +46,30 @@ export class DataService {
     });
   }
 
+  getLancamentos(userID: string): Observable<Lancamento[]> {
+    const lancCollection = this.afs.collection(
+      `/users/${userID}/lancamentos/`,
+    );
+    const lancamentos = lancCollection.snapshotChanges().pipe(
+      map((changes) => {
+        return changes.map((action) => {
+          const data = action.payload.doc.data() as Lancamento;
+          data.id = action.payload.doc.id;
+          // console.log('data: ', data);
+          return data;
+        });
+      }),
+    );
+
+    return lancamentos;
+  }
+
   // Criei esse método apenas para "popular" alguns lancamentos no BD...
   // variando os dados dos campos para ter diferentes dados para a tabela/gráfico
   createLancamento(): void {
     const lancCollection = this.afs.collection(`/users/${this.fixedUserID}/lancamentos`);
     const lancamento: Lancamento = {
+      id: 'A7a7a7a7a',
       lancamentoContaCorrenteCliente: {
         numeroRemessaBanco: 64320626054,
         dadosAnaliticoLancamentoFinanceiroCliente: [],
@@ -75,10 +97,10 @@ export class DataService {
     lancCollection
       .add(lancamento)
       .then((docRef) => {
-        console.log('docRef: ', docRef);
+        // console.log('docRef: ', docRef);
       })
       .catch(() => {
-        console.log('error creating doc');
+        console.log('error creating lancamento');
       });
   }
 }

@@ -1,1 +1,10 @@
-<p>home works!</p>
+<h1>CIELO Home Banking</h1>
+
+<div>
+  <p>{{ currentUser?.dados_pessoais.nome }}</p>
+  <button mat-stroked-button color="primary" (click)="createLanc()">
+    Criar Lancamento
+  </button>
+</div>
+
+<app-lanc-table></app-lanc-table>

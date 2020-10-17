@@ -1,20 +1,33 @@
-<!--
-
-<div class="table-container">
+<div class="table-container" *ngIf="userLancamentos">
   <mat-table
     class="table mat-elevation-z8"
     [dataSource]="dataSource"
     matSort
   >
-    <ng-container matColumnDef="created_at">
-      <mat-header-cell
-        class="cell__date"
-        *matHeaderCellDef
-        mat-sort-header
-        >{{ 'admin-table.createAt' | translate }}</mat-header-cell
+    <ng-container matColumnDef="dataEfetivaLancamento">
+      <mat-header-cell class="cell" *matHeaderCellDef mat-sort-header
+        >Data de Lançamento</mat-header-cell
       >
-      <mat-cell class="cell__date" *matCellDef="let deposit">{{
-        deposit.created_at | date: 'dd/MM/yyyy - H:mm'
+      <mat-cell class="cell__date" *matCellDef="let lancamento">{{
+        lancamento.dataEfetivaLancamento
+      }}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="numeroEvento">
+      <mat-header-cell class="cell" *matHeaderCellDef mat-sort-header
+        >Número do Evento</mat-header-cell
+      >
+      <mat-cell class="cell__date" *matCellDef="let lancamento">{{
+        lancamento.numeroEvento
+      }}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="nomeBanco">
+      <mat-header-cell class="cell" *matHeaderCellDef mat-sort-header
+        >Nome do Banco</mat-header-cell
+      >
+      <mat-cell class="cell__date" *matCellDef="let lancamento">{{
+        lancamento.nomeBanco
       }}</mat-cell>
     </ng-container>
 
@@ -26,6 +39,11 @@
       *matRowDef="let row; columns: displayedColumns"
     ></mat-row>
   </mat-table>
+  <mat-paginator
+    class="paginator"
+    [length]="userLancamentos.length"
+    [pageSize]="5"
+    [pageSizeOptions]="[5, 15, 25]"
+    showFirstLastButtons
+  ></mat-paginator>
 </div>
-
--->

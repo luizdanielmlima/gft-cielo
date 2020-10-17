@@ -119,6 +119,10 @@
               "devServerTarget": "gft-cielo:serve:production"
             }
           }
+        },
+        "deploy": {
+          "builder": "@angular/fire:deploy",
+          "options": {}
         }
       }
     }
