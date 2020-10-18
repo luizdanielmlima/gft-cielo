@@ -1,0 +1,22 @@
+<div class="header">
+  <img
+    src="../../../assets/cielo-logo-small.png"
+    alt="logo cielo"
+    height="40"
+  />
+  <div class="header-right">
+    <div>
+      Welcome,
+      <span class="header-name">{{
+        currentUser
+          ? currentUser.dados_pessoais.nome
+          : ' .........................'
+      }}</span>
+    </div>
+    <button mat-icon-button aria-label="exit button">
+      <mat-icon aria-hidden="false" aria-label="Exit icon"
+        >exit_to_app</mat-icon
+      >
+    </button>
+  </div>
+</div>

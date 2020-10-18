@@ -1,0 +1,17 @@
+.header {
+  margin-bottom: 4rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header-right {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.header-name {
+  color: var(--color-primary);
+  margin-right: 2rem;
+}

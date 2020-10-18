@@ -4,30 +4,96 @@
     [dataSource]="dataSource"
     matSort
   >
-    <ng-container matColumnDef="dataEfetivaLancamento">
-      <mat-header-cell class="cell" *matHeaderCellDef mat-sort-header
+    <ng-container matColumnDef="dataLanc">
+      <mat-header-cell
+        class="cell cell-medium"
+        *matHeaderCellDef
+        mat-sort-header
         >Data de Lançamento</mat-header-cell
       >
-      <mat-cell class="cell__date" *matCellDef="let lancamento">{{
-        lancamento.dataEfetivaLancamento
-      }}</mat-cell>
+      <mat-cell
+        class="cell cell-medium"
+        *matCellDef="let lancamento"
+        >{{ lancamento.dataLanc }}</mat-cell
+      >
     </ng-container>
 
-    <ng-container matColumnDef="numeroEvento">
-      <mat-header-cell class="cell" *matHeaderCellDef mat-sort-header
-        >Número do Evento</mat-header-cell
+    <ng-container matColumnDef="descric">
+      <mat-header-cell
+        class="cell cell-small"
+        *matHeaderCellDef
+        mat-sort-header
+        >Descrição</mat-header-cell
       >
-      <mat-cell class="cell__date" *matCellDef="let lancamento">{{
-        lancamento.numeroEvento
-      }}</mat-cell>
+      <mat-cell
+        class="cell cell-small"
+        *matCellDef="let lancamento"
+        >{{ lancamento.descric }}</mat-cell
+      >
     </ng-container>
 
-    <ng-container matColumnDef="nomeBanco">
-      <mat-header-cell class="cell" *matHeaderCellDef mat-sort-header
-        >Nome do Banco</mat-header-cell
+    <ng-container matColumnDef="numero">
+      <mat-header-cell
+        class="cell cell-medium"
+        *matHeaderCellDef
+        mat-sort-header
+        >Número</mat-header-cell
       >
-      <mat-cell class="cell__date" *matCellDef="let lancamento">{{
-        lancamento.nomeBanco
+      <mat-cell
+        class="cell cell-medium"
+        *matCellDef="let lancamento"
+        >{{ lancamento.numero }}</mat-cell
+      >
+    </ng-container>
+
+    <ng-container matColumnDef="situacao">
+      <mat-header-cell
+        class="cell cell-small"
+        *matHeaderCellDef
+        mat-sort-header
+        >Situação</mat-header-cell
+      >
+      <mat-cell
+        class="cell cell-small"
+        *matCellDef="let lancamento"
+        >{{ lancamento.situacao }}</mat-cell
+      >
+    </ng-container>
+
+    <ng-container matColumnDef="dataConf">
+      <mat-header-cell
+        class="cell cell-medium"
+        *matHeaderCellDef
+        mat-sort-header
+        >Data Conf.</mat-header-cell
+      >
+      <mat-cell
+        class="cell cell-medium"
+        *matCellDef="let lancamento"
+        >{{ lancamento.dataConf }}</mat-cell
+      >
+    </ng-container>
+
+    <ng-container matColumnDef="dadosBanc">
+      <mat-header-cell
+        class="cell cell-large"
+        *matHeaderCellDef
+        mat-sort-header
+        >Dados bancários</mat-header-cell
+      >
+      <mat-cell
+        class="cell cell-large"
+        *matCellDef="let lancamento"
+        >{{ lancamento.dadosBanc }}</mat-cell
+      >
+    </ng-container>
+
+    <ng-container matColumnDef="valorFinal">
+      <mat-header-cell class="cell" *matHeaderCellDef mat-sort-header
+        >Valor Final</mat-header-cell
+      >
+      <mat-cell class="cell" *matCellDef="let lancamento">{{
+        lancamento.valorFinal | currency: 'BRL':'symbol':'0.2-2':'pt'
       }}</mat-cell>
     </ng-container>
 

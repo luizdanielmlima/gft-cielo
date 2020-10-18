@@ -1,0 +1,11 @@
+.cell-small {
+  max-width: 12rem;
+}
+
+.cell-medium {
+  max-width: 16rem;
+}
+
+.cell-large {
+  min-width: 20rem;
+}

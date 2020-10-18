@@ -22,9 +22,13 @@ export class LancTableComponent implements OnInit {
   @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: false }) sort: MatSort;
   displayedColumns = [
-    'dataEfetivaLancamento',
-    'numeroEvento',
-    'nomeBanco',
+    'dataLanc',
+    'descric',
+    'numero',
+    'situacao',
+    'dataConf',
+    'dadosBanc',
+    'valorFinal',
   ];
 
   constructor(private dataService: DataService) {}
@@ -38,7 +42,16 @@ export class LancTableComponent implements OnInit {
   getLancamentos(): void {
     this.dataService.getLancamentos(this.currentUserID).subscribe(res => {
       this.userLancamentos = res;
-      console.log('this.userLancamentos: ', this.userLancamentos);
+      this.userLancamentos.map(item => {
+        item.dataLanc = item.dataEfetivaLancamento;
+        item.descric = item.lancamentoContaCorrenteCliente.nomeTipoOperacao;
+        item.numero = item.lancamentoContaCorrenteCliente.numeroRemessaBanco;
+        item.situacao = item.lancamentoContaCorrenteCliente.nomeSituacaoRemessa ;
+        item.dataConf = item.dataLancamentoContaCorrenteCliente;
+        item.dadosBanc = `${item.nomeBanco} Ag ${item.lancamentoContaCorrenteCliente.dadosDomicilioBancario.numeroAgencia} CC ${item.lancamentoContaCorrenteCliente.dadosDomicilioBancario.numeroContaCorrente}`;
+        item.valorFinal = item.valorLancamentoRemessa;
+      });
+      // console.log('this.userLancamentos: ', this.userLancamentos);
 
       // Tive que colocar o setTimetou para a paginação funcionar! (?)
       setTimeout(() => this.refreshTableData(this.userLancamentos), 100);
