@@ -4,6 +4,20 @@
     [dataSource]="dataSource"
     matSort
   >
+    <ng-container matColumnDef="codigoIdentificadorUnico">
+      <mat-header-cell
+        class="cell cell-small"
+        *matHeaderCellDef
+        mat-sort-header
+        >Id</mat-header-cell
+      >
+      <mat-cell
+        class="cell cell-small"
+        *matCellDef="let lancamento"
+        >{{ lancamento.codigoIdentificadorUnico }}</mat-cell
+      >
+    </ng-container>
+
     <ng-container matColumnDef="dataLanc">
       <mat-header-cell
         class="cell cell-medium"
@@ -89,10 +103,13 @@
     </ng-container>
 
     <ng-container matColumnDef="valorFinal">
-      <mat-header-cell class="cell" *matHeaderCellDef mat-sort-header
+      <mat-header-cell
+        class="cell-small"
+        *matHeaderCellDef
+        mat-sort-header
         >Valor Final</mat-header-cell
       >
-      <mat-cell class="cell" *matCellDef="let lancamento">{{
+      <mat-cell class="cell-small" *matCellDef="let lancamento">{{
         lancamento.valorFinal | currency: 'BRL':'symbol':'0.2-2':'pt'
       }}</mat-cell>
     </ng-container>

@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, NgZone, OnDestroy, OnInit } from '@angular/core';
 
 import * as am4core from '@amcharts/amcharts4/core';
 import * as am4charts from '@amcharts/amcharts4/charts';
@@ -9,7 +9,7 @@ import { DataService } from 'src/app/services/data.service';
 function am4themes_myTheme(target):void {
   if (target instanceof am4core.InterfaceColorSet) {
     target.setFor('text', am4core.color('#b3c6d4'));
-    target.setFor('grid', am4core.color('#80a0b8'));
+    target.setFor('grid', am4core.color('#ccc'));
   }
 }
 
@@ -21,18 +21,29 @@ am4core.useTheme(am4themes_myTheme);
   templateUrl: './graph.component.html',
   styleUrls: ['./graph.component.css']
 })
-export class GraphComponent implements OnInit {
-  // @Input() userLancamentos: Lancamento[];
+export class GraphComponent implements OnInit, OnDestroy {
   currentUserID: string;
   userLancamentos: Lancamento[];
   lancChart: am4charts.XYChart;
 
-  constructor(private dataService: DataService) { }
+  constructor(private zone: NgZone, private dataService: DataService) { }
 
   ngOnInit(): void {
+    const date = new Date('June 21, 2016');
+    const timest = date.getTime();
+    console.log('timestamp: ', timest);
+
     // this would be dynamic, with the firebase.auth information... but it´s fixed for the demo
     this.currentUserID = this.dataService.getUserID();
     this.getLancamentos();
+  }
+
+  ngOnDestroy(): void {
+    this.zone.runOutsideAngular(() => {
+      if (this.lancChart) {
+        this.lancChart.dispose();
+      }
+    });
   }
 
   // IMPORTANTE: usar solução única para pegar lançamentos, disponibilizar via "state" (Subject?) para table e graph
@@ -50,6 +61,11 @@ export class GraphComponent implements OnInit {
         item.dataForGraph = new Date(item.dateEfetivaLancamento).toDateString();
       });
       console.log('this.userLancamentos: ', this.userLancamentos);
+
+      if (this.lancChart) {
+        this.lancChart.dispose();
+      }
+
       this.createlancChart();
     });
   }
@@ -61,30 +77,30 @@ export class GraphComponent implements OnInit {
   createlancChart(): void {
     const lancChart = am4core.create('chartdiv', am4charts.XYChart);
 
-    // no data during creation, will be added later
     lancChart.data = this.userLancamentos;
     lancChart.data.sort(this.sortByDataDesc);
 
     const categoryAxis = lancChart.xAxes.push(
-      new am4charts.CategoryAxis(),
+      new am4charts.DateAxis(),
     );
-    categoryAxis.dataFields.category = 'dataForGraph';
-    categoryAxis.renderer.minGridDistance = 20;
+    categoryAxis.dataFields.date = 'dataForGraph';
     const valueAxis = lancChart.yAxes.push(
       new am4charts.ValueAxis(),
     );
-    valueAxis.title.text = 'VALOR';
+    valueAxis.title.text = 'Valores';
 
     const series = lancChart.series.push(
       new am4charts.ColumnSeries(),
     );
     series.name = 'Operacões';
-    // series.columns.template.tooltipText =
-    //   'Total:\n{amount} {coin}\n{amountUSD} USD ';
+    series.columns.template.tooltipText =
+      'Valor: {valorFinal}\n Data: {dataForGraph.formatDate("dd/MMM/yy")}';
     series.columns.template.fill = am4core.color('#00aeef'); // fill
+    series.columns.template.width = 30;
     series.dataFields.valueY = 'valorFinal';
-    series.dataFields.categoryX = 'dataForGraph';
+    series.dataFields.dateX  = 'dataForGraph';
 
+    // lancChart.legend = new am4charts.Legend();
     this.lancChart = lancChart;
   }
 

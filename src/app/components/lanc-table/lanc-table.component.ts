@@ -22,6 +22,7 @@ export class LancTableComponent implements OnInit {
   @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: false }) sort: MatSort;
   displayedColumns = [
+    'codigoIdentificadorUnico',
     'dataLanc',
     'descric',
     'numero',
