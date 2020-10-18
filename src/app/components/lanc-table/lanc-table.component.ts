@@ -50,6 +50,7 @@ export class LancTableComponent implements OnInit {
         item.dataConf = item.dataLancamentoContaCorrenteCliente;
         item.dadosBanc = `${item.nomeBanco} Ag ${item.lancamentoContaCorrenteCliente.dadosDomicilioBancario.numeroAgencia} CC ${item.lancamentoContaCorrenteCliente.dadosDomicilioBancario.numeroContaCorrente}`;
         item.valorFinal = item.valorLancamentoRemessa;
+        item.dataForGraph = new Date(item.dateEfetivaLancamento);
       });
       // console.log('this.userLancamentos: ', this.userLancamentos);
 
