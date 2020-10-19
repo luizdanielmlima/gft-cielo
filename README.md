@@ -1,6 +1,7 @@
 # Projeto GFT-Cielo
 
 Esse projeto foi gerado com o Angular CLI (https://github.com/angular/angular-cli) version 10.0.5. Esse projeto também usa Angular Material, Firebase e amCharts.
+Demo Live: https://gft-cielo.web.app/
 
 ## Como rodar o projeto localmente em sua IDE (ex.: VSCode)
 
