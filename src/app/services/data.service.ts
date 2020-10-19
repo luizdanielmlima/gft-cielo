@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 
+import { Subject } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import {
@@ -19,9 +20,17 @@ export class DataService {
   usersCollection: AngularFirestoreCollection<any>;
   fixedUserID: string;
 
+  // Solução simples de "state" para os dados de lançamentos
+  private lancamentosSource = new Subject<Lancamento[]>();
+  curLancamentos = this.lancamentosSource.asObservable();
+
   constructor(private afs: AngularFirestore) {
     this.fixedUserID = 'khgH4qf6iw0gs6xj44Rn';
     this.usersCollection = this.afs.collection('/users');
+  }
+
+  setLancamentos(data: Lancamento[]): void {
+    this.lancamentosSource.next(data);
   }
 
   getUserID(): string {
@@ -55,7 +64,6 @@ export class DataService {
         return changes.map((action) => {
           const data = action.payload.doc.data() as Lancamento;
           data.id = action.payload.doc.id;
-          // console.log('data: ', data);
           return data;
         });
       }),

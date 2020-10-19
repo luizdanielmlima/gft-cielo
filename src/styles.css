@@ -36,3 +36,15 @@ h5,
 h6 {
   color: var(--color-primary);
 }
+
+a,
+a:link,
+a:visited {
+  cursor: pointer;
+  color: var(--color-primary);
+}
+
+a:hover,
+a:active {
+  color: var(--color-primary-dark);
+}

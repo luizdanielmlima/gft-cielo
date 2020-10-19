@@ -1,6 +1,10 @@
 :root {
   /* cores a partir do logo e site da Cielo */
   --color-primary: #00aeef;
+  --color-primary-dark: #0085b6;
+
   --color-secondary: #e0e566;
   --color-tertiary: #3c0459;
+
+  --color-grey-light: #fbfbfb;
 }

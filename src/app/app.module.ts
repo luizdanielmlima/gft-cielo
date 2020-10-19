@@ -9,6 +9,9 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatIconModule } from '@angular/material/icon';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatSelectModule } from '@angular/material/select';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -20,6 +23,7 @@ import { HeaderComponent } from './components/header/header.component';
 import localePt from '@angular/common/locales/pt';
 import { registerLocaleData } from '@angular/common';
 import { GraphComponent } from './components/graph/graph.component';
+import { FooterComponent } from './components/footer/footer.component';
 registerLocaleData(localePt);
 
 @NgModule({
@@ -28,7 +32,8 @@ registerLocaleData(localePt);
     HomeComponent,
     LancTableComponent,
     HeaderComponent,
-    GraphComponent
+    GraphComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,
@@ -37,7 +42,10 @@ registerLocaleData(localePt);
     MatButtonModule,
     MatTableModule,
     MatPaginatorModule,
-    MatIconModule
+    MatIconModule,
+    MatFormFieldModule,
+    MatSelectModule,
+    MatProgressSpinnerModule
   ],
   providers: [],
   bootstrap: [AppComponent]
