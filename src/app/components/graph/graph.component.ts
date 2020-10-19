@@ -29,13 +29,17 @@ export class GraphComponent implements OnInit, OnDestroy {
   constructor(private zone: NgZone, private dataService: DataService) { }
 
   ngOnInit(): void {
-    const date = new Date('June 21, 2016');
-    const timest = date.getTime();
-    console.log('timestamp: ', timest);
-
     // userID seria dinâmico com firebase.auth, mas é fixo para o demo (somente 1 usuário com dados)
     this.currentUserID = this.dataService.getUserID();
-    this.getLancamentos();
+
+    // Para obter os dados de lançamentos, via Subject (data.service)
+    this.dataService.curLancamentos.subscribe(data => {
+      this.userLancamentos = data;
+      if (this.lancChart) {
+        this.lancChart.dispose();
+      }
+      this.createlancChart();
+    });
   }
 
   ngOnDestroy(): void {
@@ -43,30 +47,6 @@ export class GraphComponent implements OnInit, OnDestroy {
       if (this.lancChart) {
         this.lancChart.dispose();
       }
-    });
-  }
-
-  // IMPORTANTE: usar solução única para pegar lançamentos, disponibilizar via "state" (Subject?) para table e graph
-  getLancamentos(): void {
-    this.dataService.getLancamentos(this.currentUserID).subscribe(res => {
-      this.userLancamentos = res;
-      this.userLancamentos.map(item => {
-        item.dataLanc = item.dataEfetivaLancamento;
-        item.descric = item.lancamentoContaCorrenteCliente.nomeTipoOperacao;
-        item.numero = item.lancamentoContaCorrenteCliente.numeroRemessaBanco;
-        item.situacao = item.lancamentoContaCorrenteCliente.nomeSituacaoRemessa ;
-        item.dataConf = item.dataLancamentoContaCorrenteCliente;
-        item.dadosBanc = `${item.nomeBanco} Ag ${item.lancamentoContaCorrenteCliente.dadosDomicilioBancario.numeroAgencia} CC ${item.lancamentoContaCorrenteCliente.dadosDomicilioBancario.numeroContaCorrente}`;
-        item.valorFinal = item.valorLancamentoRemessa;
-        item.dataForGraph = new Date(item.dateEfetivaLancamento).toDateString();
-      });
-      console.log('this.userLancamentos: ', this.userLancamentos);
-
-      if (this.lancChart) {
-        this.lancChart.dispose();
-      }
-
-      this.createlancChart();
     });
   }
 
@@ -102,6 +82,13 @@ export class GraphComponent implements OnInit, OnDestroy {
 
     // lancChart.legend = new am4charts.Legend();
     this.lancChart = lancChart;
+  }
+
+  findOutTimestamp(): void {
+    // apenas para ajudar a converter datas para timestamp, ao editar os lançamentos no banco de dados
+    const date = new Date('June 21, 2016');
+    const timest = date.getTime();
+    console.log('timestamp: ', timest);
   }
 
 }

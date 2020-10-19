@@ -43,28 +43,11 @@ export class LancTableComponent implements OnInit {
 
     // userID seria dinâmico com firebase.auth, mas é fixo para o demo (somente 1 usuário com dados)
     this.currentUserID = this.dataService.getUserID();
-    this.getLancamentos();
-  }
 
-  getLancamentos(): void {
-    this.dataService.getLancamentos(this.currentUserID).subscribe(res => {
-      this.userLancamentos = res;
-      if (this.userLancamentos && this.userLancamentos.length > 0) {
-        this.userLancamentos.map(item => {
-          item.dataLanc = item.dataEfetivaLancamento;
-          item.descric = item.lancamentoContaCorrenteCliente.nomeTipoOperacao;
-          item.numero = item.lancamentoContaCorrenteCliente.numeroRemessaBanco;
-          item.situacao = item.lancamentoContaCorrenteCliente.nomeSituacaoRemessa ;
-          item.dataConf = item.dataLancamentoContaCorrenteCliente;
-          item.dadosBanc = `${item.nomeBanco} Ag ${item.lancamentoContaCorrenteCliente.dadosDomicilioBancario.numeroAgencia} CC ${item.lancamentoContaCorrenteCliente.dadosDomicilioBancario.numeroContaCorrente}`;
-          item.valorFinal = item.valorLancamentoRemessa;
-          item.dataForGraph = new Date(item.dateEfetivaLancamento);
-        });
-        this.total = this.userLancamentos.map((item) => item.valorFinal).reduce((prev, next) => prev + next);
-        console.log('this.total: ', this.total);
-      }
-
-      // console.log('this.userLancamentos: ', this.userLancamentos);
+    // Para obter os dados de lançamentos, via Subject (data.service)
+    this.dataService.curLancamentos.subscribe(data => {
+      this.userLancamentos = data;
+      this.total = this.userLancamentos.map((item) => item.valorFinal).reduce((prev, next) => prev + next);
 
       // Tive que colocar o setTimeout para a paginação funcionar! (investigar por que...)
       setTimeout(() => this.refreshTableData(this.userLancamentos), 100);
