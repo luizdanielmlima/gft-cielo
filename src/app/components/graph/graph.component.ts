@@ -33,7 +33,7 @@ export class GraphComponent implements OnInit, OnDestroy {
     const timest = date.getTime();
     console.log('timestamp: ', timest);
 
-    // this would be dynamic, with the firebase.auth information... but it´s fixed for the demo
+    // userID seria dinâmico com firebase.auth, mas é fixo para o demo (somente 1 usuário com dados)
     this.currentUserID = this.dataService.getUserID();
     this.getLancamentos();
   }

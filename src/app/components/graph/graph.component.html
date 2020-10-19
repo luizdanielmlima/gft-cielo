@@ -1,4 +1,13 @@
 <h2>Histórico de Operações</h2>
+
+<div class="loader-container" *ngIf="!userLancamentos">
+  <mat-spinner
+    strokeWidth="5"
+    diameter="30"
+    color="accent"
+  ></mat-spinner>
+</div>
+
 <div
   class="graph"
   id="chartdiv"

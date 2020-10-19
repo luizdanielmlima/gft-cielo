@@ -1,3 +1,30 @@
+<div class="table-header">
+  <mat-form-field appearance="outline">
+    <mat-label>Extrato do mês:</mat-label>
+    <mat-select [(value)]="curMonth">
+      <mat-option *ngFor="let month of months" [value]="month">{{
+        month
+      }}</mat-option>
+    </mat-select>
+  </mat-form-field>
+  <div class="table-header-total">
+    <p class="total-text">
+      Total:
+      <span class="total-text total-value">{{
+        total | currency: 'BRL':'symbol':'0.2-2':'pt'
+      }}</span>
+    </p>
+  </div>
+</div>
+
+<div class="loader-container" *ngIf="!userLancamentos">
+  <mat-spinner
+    strokeWidth="5"
+    diameter="30"
+    color="accent"
+  ></mat-spinner>
+</div>
+
 <div class="table-container" *ngIf="userLancamentos">
   <mat-table
     class="table mat-elevation-z8"
