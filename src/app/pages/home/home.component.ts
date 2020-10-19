@@ -27,7 +27,7 @@ export class HomeComponent implements OnInit {
   }
 
 
-  // apenas para colocar dados de lançamentos no Firestore...
+  // apenas para colocar dado do lançamento no Firestore...
   createLanc(): void {
     this.dataService.createLancamento();
   }

@@ -23,4 +23,14 @@ export interface Lancamento {
   valorLancamentoRemessa: number;
   dateLancamentoContaCorrenteCliente: number;
   dateEfetivaLancamento: number;
+
+  // Incluí esses campos para facilitar mapeamento para mat-table e grafico
+  dataLanc?: string;
+  descric?: string;
+  numero?: number;
+  situacao?: string;
+  dataConf?: string;
+  dadosBanc?: string;
+  valorFinal?: number;
+  dataForGraph?: any;
 }

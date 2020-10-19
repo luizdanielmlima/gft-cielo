@@ -1,0 +1,11 @@
+@import '../../../styles.css';
+
+.container {
+  margin: 0 auto;
+  max-width: 150rem;
+  padding: 4rem 6rem;
+}
+
+p {
+  color: var(--color-primary);
+}
